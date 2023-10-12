@@ -5,3 +5,27 @@
 [2023-10-09 22:12:47.828525: log entry from 127.0.0.1] None
 [2023-10-09 22:34:35.082365: log entry from 127.0.0.1] <br>
 [2023-10-09 22:46:02.720444: log entry from 127.0.0.1] Hello. This should be escaped: <script>alert('Uh, oh')</script>
+[2023-10-11 16:25:20.043386: log entry from 127.0.0.1] Hello. This should be escaped: <br>
+[2023-10-11 16:29:55.061964: log entry from 127.0.0.1] Hello!
+[2023-10-11 16:37:08.117170: log entry from 127.0.0.1] \n
+\n
+hello!
+
+[2023-10-11 17:12:20.853514: log entry from 127.0.0.1] log
+[2023-10-11 17:14:07.238566: log entry from 127.0.0.1] log
+[2023-10-11 17:14:40.939269: log entry from 127.0.0.1] Hello!
+[2023-10-11 17:17:33.616919: log entry from 127.0.0.1] log
+[2023-10-11 17:17:41.021306: log entry from 127.0.0.1] log2
+[2023-10-11 19:26:01.630887: log entry from 127.0.0.1] log
+[2023-10-11 19:26:43.115998: log entry from 127.0.0.1] log2
+[2023-10-11 19:43:32.666069: log entry from 127.0.0.1] log2
+[2023-10-11 19:44:00.716009: log entry from 127.0.0.1] log3
+[2023-10-11 19:47:00.516864: log entry from 127.0.0.1] log5
+[2023-10-11 19:56:34.761203: log entry from 127.0.0.1] testing
+
+[2023-10-11 19:56:45.001510: log entry from 127.0.0.1] testing
+
+[2023-10-11 20:01:00.547471: log entry from 127.0.0.1] cool (_)-(_)\
+[2023-10-11 21:05:39.331345: log entry from 127.0.0.1] cool1
+[2023-10-11 21:05:43.448369: log entry from 127.0.0.1] cool2
+[2023-10-11 21:05:48.203320: log entry from 127.0.0.1] cool3
