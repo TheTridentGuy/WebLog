@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebLog Logger</title>
-    <style>
-        * {
-            font-family: sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Submit A WebLog: <br><a href="/view">[View WebLog]</a></h1>
-    <br>
+    <span>Submit A Weblog:</span><button onclick="location.replace('/view')">View WebLog</button>
+    <hr>
     <br>
     <form method="get">
+        <label for="id">Client ID:</label>
+        <input type="text" name="id" id="id" value="weblog-online-logger">
         <textarea name="log" id="" cols="30" rows="10"></textarea>
         <br>
         <br>

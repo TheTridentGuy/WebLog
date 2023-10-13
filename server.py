@@ -1,25 +1,34 @@
 # pylint: disable-all
 
-import datetime
 from flask import Flask, request, render_template
 import hashlib
 from markupsafe import escape
-import json
+import logger
+import sessions
 
 app = Flask(__name__)
 
-adminusername = "admin"
-adminpasshash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+admin_username = "admin"
+admin_pass_hash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+json_path = "log.json"
+log = logger.Logger()
+manager = sessions.SessionManager()
+try:
+    log.load_json(json_path)
+except:
+    pass
 
 
 @app.route("/")
 def index():
     entry = request.values.get("log")
+    id = request.values.get("id")
     if entry:
-        log(entry, request.remote_addr)
-        return ""
+        log.append_log(data=entry, source_ip=request.remote_addr, id=id)
+        log.dump_json(json_path)
+        return render_template("text.html", text="WebLog Submitted")
     else:
-        return render_template("logger.html")
+        return render_template("index.html")
 
 
 @app.route("/view", methods=["GET", "POST"])
@@ -27,31 +36,13 @@ def view():
     username = request.values.get("username")
     password = request.values.get("password")
     if username or password:
-        if username == adminusername and hashlib.sha256(password.encode("utf-8")).hexdigest() == adminpasshash:
-            with open("log.txt") as f:
-                data = f.read()
-                return render_template("viewer.html", html=escape(data))
+        if username == admin_username and hashlib.sha256(password.encode("utf-8")).hexdigest() == admin_pass_hash:
+            key = manager.get_key()
+            return render_template("view.html", html=escape(str(log)), key=key)
         else:
-            return "Invalid username or password."
+            return render_template("text.html", text="Invalid username or password.")
     else:
-        return render_template("view.html")
-
-
-def log(data, remote_ip):
-    with open("log.json", "r") as f:
-        try:
-            json_data = json.loads(f.read())
-        except json.JSONDecodeError as e:
-            print(e)
-            print("New json log...")
-            json_data = {}
-        if not json_data.get(remote_ip):
-            json_data[remote_ip] = {}
-        json_data[remote_ip][str(datetime.datetime.now())] = data;
-    with open("log.json", "w") as f:
-        f.write(json.dumps(json_data))
-    with open("log.txt", "a") as f:
-        f.write(f"[{datetime.datetime.now()}: log entry from {remote_ip}] {data}\n")
+        return render_template("login.html")
 
 
 app.run("localhost", 8003)

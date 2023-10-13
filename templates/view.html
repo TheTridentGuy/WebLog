@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebLog Viewer</title>
-    <style>
-        * {
-            font-family: sans-serif;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Login:</h1>
+    <span>View Mode:</span>
+    <select name="viewmode" id="viewmode" onchange="switch_viewmode()">
+        <option value="rawtext" selected>Raw - Text</option>
+        <option value="rawjson">Raw - JSON</option>
+        <option value="byip">Sorted - By IP</option>
+        <option value="byid">Sorted - By Client ID</option>
+        <option value="newest">Sorted - Newest</option>
+        <option value="oldest">Sorted - Oldest</option>
+        
+      </select>
+    <hr>
     <br>
-    <br>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username">
-        <br>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
-        <br>
-        <br>
-        <input type="submit" value="Submit">
-    </form>
+    <pre id="rawview">{{ html }}</pre>
+    <div id="sortedview"></div>
+    <script>
+        var session_key = "{{ key }}";
+        alert(session_key);
+        function switch_viewmode(){
+            switch(document.getElementById("viewmode").value){
+                case "rawtext":
+                    
+            }
+        }
+    </script>
 </body>
 </html>
