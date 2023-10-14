@@ -1,7 +1,0 @@
-[2023-10-09 21:32:00.082214 from 127.0.0.1] None
-[2023-10-09 22:09:37.627913: log entry from 127.0.0.1] None
-[2023-10-09 22:10:02.876222: log entry from 127.0.0.1] None
-[2023-10-09 22:11:41.294772: log entry from 127.0.0.1] None
-[2023-10-09 22:12:47.828525: log entry from 127.0.0.1] None
-[2023-10-09 22:34:35.082365: log entry from 127.0.0.1] <br>
-[2023-10-09 22:46:02.720444: log entry from 127.0.0.1] Hello. This should be escaped: <script>alert('Uh, oh')</script>

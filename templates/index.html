@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebLog Logger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <span>Submit A Weblog:</span><button onclick="location.replace('/view')">View WebLog</button>
+    <hr>
+    <br>
+    <form method="get">
+        <label for="id">Client ID:</label>
+        <input type="text" name="id" id="id" value="weblog-online-logger">
+        <textarea name="log" id="" cols="30" rows="10"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
