@@ -23,11 +23,49 @@
     <div id="sortedview"></div>
     <script>
         var session_key = "{{ key }}";
-        alert(session_key);
+        var error_text = "Uh, oh, Something went wrong. Try signing in again. Response status code: "
+
+        function $(id){
+            return document.getElementById(id);
+        }
+
+        function escapeHTML(unsafe){
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         function switch_viewmode(){
             switch(document.getElementById("viewmode").value){
+                case "rawjson":
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4) {
+                        if(this.status == 200){ 
+                            $("rawview").innerHTML = escapeHTML(JSON.stringify(JSON.parse(this.responseText), null, 2));
+                        }else{
+                            $("rawview").innerHTML = error_text + this.status;
+                        }
+                    }};
+                    xhttp.open("GET", "/logformat/rawjson?session="+session_key, true);
+                    xhttp.send();
+                    break;
                 case "rawtext":
-                    
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4) {
+                        if(this.status == 200){
+                            $("rawview").innerHTML = escapeHTML(this.responseText);
+                        }else{
+                            $("rawview").innerHTML = error_text + this.status;
+                        }
+                    }};
+                    xhttp.open("GET", "/logformat/rawtext?session="+session_key, true);
+                    xhttp.send();
+                    break;
             }
         }
     </script>

@@ -17,6 +17,18 @@ class Logger:
         with open(file_path, "w") as f:
             json.dump(self.logs, f, cls=_encoder)
 
+    def raw_json(self):
+        return json.dumps(self.logs, cls=_encoder)
+    
+    def sorted_by_ip(self):
+        by_ip = {}
+        for log in self.logs:
+            if by_ip.get(log.source_ip):
+                by_ip[log.source_ip].append(log.__dict__)
+            else:
+                by_ip[log.source_ip] = [log.__dict__]
+        return by_ip
+
     def append_log(self, data, source_ip, time=datetime.datetime.now(), id=None, format="[$LOGTIME$: log entry from $LOGIP$ ($LOGID$)] $LOGDATA$"):
         log = Log(data=data, source_ip=source_ip, time=time, id=id, format=format)
         self.logs.append(log)

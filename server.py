@@ -29,7 +29,18 @@ def index():
         return render_template("text.html", text="WebLog Submitted")
     else:
         return render_template("index.html")
-
+    
+@app.route("/logformat/<string:format>")
+def log_format(format):
+    session_key = request.values.get("session")
+    if not manager.verify(session_key):
+        return render_template("text.html", text="401 Unauthorized"), 401
+    if format == "rawjson":
+        return log.raw_json()
+    elif format == "rawtext":
+        return str(log)
+    elif format == "byip":
+        return log.sorted_by_ip()
 
 @app.route("/view", methods=["GET", "POST"])
 def view():
@@ -38,7 +49,7 @@ def view():
     if username or password:
         if username == admin_username and hashlib.sha256(password.encode("utf-8")).hexdigest() == admin_pass_hash:
             key = manager.get_key()
-            return render_template("view.html", html=escape(str(log)), key=key)
+            return render_template("view.html", html=str(log), key=key)
         else:
             return render_template("text.html", text="Invalid username or password.")
     else:
